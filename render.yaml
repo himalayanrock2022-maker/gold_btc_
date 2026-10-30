@@ -1,20 +1,17 @@
+
 services:
   - type: web
     name: hima-gold-research
     runtime: python
-    plan: starter
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn server:app --workers 1 --threads 4 --timeout 120
     healthCheckPath: /
-    disk:
-      name: hima-signals-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8
       - key: DB_PATH
-        value: /var/data/hima_signals.sqlite
+        value: /tmp/hima_signals.sqlite
       - key: BRIDGE_TOKEN
         generateValue: true
       - key: MIN_SCORE
